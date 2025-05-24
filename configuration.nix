@@ -2,6 +2,7 @@
 
 let
   vars = import ./vars.nix;
+  secret-vars = import ./secret-vars.nix;
 in
 {
   ###
@@ -86,6 +87,19 @@ in
   # User Services
   ###
   services.tailscale.enable = true;
+  services.miniflux = {
+    enable = true;
+    config = {
+      RUN_MIGRATIONS = 1;
+      CREATE_ADMIN = 1;
+      ADMIN_USERNAME = secret-vars.miniflux.adminUsername;
+      ADMIN_PASSWORD = secret-vars.miniflux.adminPassword;
+      BASE_URL = secret-vars.miniflux.baseUrl;
+      MEDIA_PROXY_MODE = "all";
+      BATCH_SIZE = 1000;
+      WORKER_POOL_SIZE = 50;
+    }
+  }
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
