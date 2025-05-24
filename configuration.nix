@@ -91,11 +91,13 @@ in
     enable = true;
     config = {
       RUN_MIGRATIONS = 1;
+      CREATE_ADMIN = 1;
       BASE_URL = secret-vars.miniflux.baseUrl;
       MEDIA_PROXY_MODE = "all";
       BATCH_SIZE = 1000;
       WORKER_POOL_SIZE = 50;
     };
+    adminCredentialsFile = "/home/${vars.username}/miniflux/admin-credentials";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
