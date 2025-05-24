@@ -67,6 +67,7 @@ in
     users.${vars.username} = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
+      openssh.authorizedKeys.keys = [ vars.sshKey ];
     };
   };
   security.sudo.extraRules = [
