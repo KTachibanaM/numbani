@@ -58,7 +58,6 @@ in
     git
     curl
     wget
-    cloudflared
   ];
   
   ###
@@ -99,9 +98,6 @@ in
       WORKER_POOL_SIZE = 50;
     };
     adminCredentialsFile = "/home/${vars.username}/miniflux/admin-credentials";
-  };
-  services.cloudflared = {
-    enable = true;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
