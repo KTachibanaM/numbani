@@ -18,7 +18,7 @@ jobs:
           tags: tag:ops
       - name: Pull repo
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "cd /home/nixos/numbani && git fetch origin && git checkout ${{ github.sha }}"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "cd /home/nixos/numbani && git checkout -- . && git fetch origin && git checkout ${{ github.sha }}"
       - name: Pull and build system
         run: |
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "sudo nixos-rebuild switch"
