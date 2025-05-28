@@ -58,6 +58,7 @@ in
     git
     curl
     wget
+    cloudflared
   ];
   
   ###
