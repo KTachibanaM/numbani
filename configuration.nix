@@ -69,7 +69,7 @@ in
     mutableUsers = false;
     users.${vars.username} = {
       isNormalUser = true;
-      extraGroups = [ "wheel", "docker" ];
+      extraGroups = [ "wheel" "docker" ];
       openssh.authorizedKeys.keys = [ vars.sshKey ];
     };
   };
