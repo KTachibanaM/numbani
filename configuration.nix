@@ -26,6 +26,9 @@ in
 
   i18n.defaultLocale = vars.locale;
 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.autoPrune.enable = true;
+
   documentation.enable = false;
 
   ###
@@ -66,7 +69,7 @@ in
     mutableUsers = false;
     users.${vars.username} = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel", "docker" ];
       openssh.authorizedKeys.keys = [ vars.sshKey ];
     };
   };
