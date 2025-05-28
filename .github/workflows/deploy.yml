@@ -24,4 +24,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "sudo nixos-rebuild switch"
       - name: Deploy apps
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@miniflux" "bash /home/nixos/numbani/deploy-apps.sh"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "bash /home/nixos/numbani/deploy-apps.sh"
