@@ -26,8 +26,15 @@ in
 
   i18n.defaultLocale = vars.locale;
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.autoPrune.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      flags = [ "--all" ];
+      dates = "daily";
+      randomizedDelaySec = "5min";
+    };
+  };
 
   documentation.enable = false;
 
