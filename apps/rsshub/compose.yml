@@ -1,0 +1,38 @@
+services:
+  rsshub:
+    image: diygod/rsshub
+    container_name: rsshub
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      CACHE_TYPE: redis
+      REDIS_URL: 'redis://redis:6379/'
+      PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000'
+    env_file:
+      - env
+    depends_on:
+      - redis
+      - browserless
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+  browserless:
+    image: browserless/chrome
+    restart: unless-stopped
+    ulimits:
+      core:
+        hard: 0
+        soft: 0
+  redis:
+    image: 'redis:alpine'
+    restart: unless-stopped
+    volumes:
+      - 'redis-data:/data'
+  cloudflared:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run rsshub-private
+    env_file:
+      - env
+
+volumes:
+  redis-data:
