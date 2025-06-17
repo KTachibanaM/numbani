@@ -1,0 +1,14 @@
+services:
+  weibo-rss:
+    image: ghcr.io/sekai-soft/weibo-rss
+    container_name: weibo-rss
+    restart: unless-stopped
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  cloudflared:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run weibo-rss
+    env_file:
+      - env

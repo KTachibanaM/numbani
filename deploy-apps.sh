@@ -2,9 +2,13 @@
 set -e
 
 # miniflux
-cp /home/nixos/numbani/apps/miniflux/compose.yml /home/nixos/miniflux/compose.yml
+cp /home/nixos/nixos/apps/miniflux/compose.yml /home/nixos/miniflux/compose.yml
 docker compose -f /home/nixos/miniflux/compose.yml up -d
 
 # rsshub
-cp /home/nixos/numbani/apps/rsshub/compose.yml /home/nixos/rsshub/compose.yml
+cp /home/nixos/nixos/apps/rsshub/compose.yml /home/nixos/rsshub/compose.yml
 docker compose -f /home/nixos/rsshub/compose.yml up -d
+
+# weibo-rss
+cp /home/nixos/nixos/apps/weibo-rss/compose.yml /home/nixos/weibo-rss/compose.yml
+docker compose -f /home/nixos/weibo-rss/compose.yml up -d
