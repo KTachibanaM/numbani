@@ -12,3 +12,7 @@ docker compose -f /home/nixos/rsshub/compose.yml up -d
 # weibo-rss
 cp /home/nixos/nixos/apps/weibo-rss/compose.yml /home/nixos/weibo-rss/compose.yml
 docker compose -f /home/nixos/weibo-rss/compose.yml up -d
+
+# telegram-to-rss
+cp /home/nixos/nixos/apps/telegram-to-rss/compose.yml /home/nixos/telegram-to-rss/compose.yml
+docker compose -f /home/nixos/telegram-to-rss/compose.yml up -d
