@@ -7,12 +7,15 @@ services:
       - telegram-to-rss-data:/data
     env_file:
       - env
+
   cloudflared:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run telegram-to-rss
     env_file:
       - env
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
 volumes:
   telegram-to-rss-data:

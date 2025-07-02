@@ -17,6 +17,7 @@ services:
       - HTTP_CLIENT_TIMEOUT=300
     env_file:
       - env
+
   miniflux-postgres:
     image: postgres:15
     restart: unless-stopped
@@ -30,12 +31,15 @@ services:
       test: ["CMD", "pg_isready", "-U", "miniflux"]
       interval: 10s
       start_period: 30s
+
   cloudflared:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run miniflux
     env_file:
       - env
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
 volumes:
   miniflux-postgres:

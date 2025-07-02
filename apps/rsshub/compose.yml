@@ -15,6 +15,7 @@ services:
       - browserless
     labels:
       - com.centurylinklabs.watchtower.enable=true
+
   browserless:
     image: browserless/chrome
     restart: unless-stopped
@@ -22,17 +23,21 @@ services:
       core:
         hard: 0
         soft: 0
+
   redis:
     image: 'redis:alpine'
     restart: unless-stopped
     volumes:
       - 'redis-data:/data'
+
   cloudflared:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run rsshub-private
     env_file:
       - env
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
 volumes:
   redis-data:

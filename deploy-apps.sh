@@ -16,3 +16,8 @@ docker compose -f /home/nixos/weibo-rss/compose.yml up -d
 # telegram-to-rss
 cp /home/nixos/nixos/apps/telegram-to-rss/compose.yml /home/nixos/telegram-to-rss/compose.yml
 docker compose -f /home/nixos/telegram-to-rss/compose.yml up -d
+
+# watchtower
+mkdir -p /home/nixos/watchtower
+cp /home/nixos/nixos/apps/watchtower/compose.yml /home/nixos/watchtower/compose.yml
+docker compose -f /home/nixos/watchtower/compose.yml up -d
