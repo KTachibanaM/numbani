@@ -15,6 +15,7 @@ services:
       - BATCH_SIZE=1000
       - WORKER_POOL_SIZE=50
       - HTTP_CLIENT_TIMEOUT=300
+      - POLLING_LIMIT_PER_HOST=1
     env_file:
       - env
 
