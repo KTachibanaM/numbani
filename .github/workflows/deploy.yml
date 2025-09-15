@@ -25,3 +25,6 @@ jobs:
       - name: Deploy apps
         run: |
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "bash /home/nixos/nixos/deploy-apps.sh"
+      - name: Deploy jobs
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "nixos@numbani" "bash /home/nixos/nixos/deploy-jobs.sh"
