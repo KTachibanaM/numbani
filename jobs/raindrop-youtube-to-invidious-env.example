@@ -4,3 +4,6 @@ RAINDROP_TEST_TOKEN="your-raindrop-api-token-here"
 # Invidious instance URL (without trailing slash)
 # Examples: https://invidious.io, https://yewtu.be, https://inv.riverside.rocks
 INVIDIOUS_INSTANCE="https://invidious.io"
+
+# Healthchecks.io ping UUID for monitoring
+HEALTHCHECKS_UUID="your-healthchecks-uuid-here"

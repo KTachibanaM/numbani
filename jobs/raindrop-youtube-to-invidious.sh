@@ -1,24 +1,38 @@
 #!/usr/bin/env bash
 set -e
 
+# Function to handle errors and ping healthchecks.io failure
+error_exit() {
+    echo "$1" >&2
+    if [ -n "$HEALTHCHECKS_UUID" ]; then
+        wget -q -O /dev/null "https://hc-ping.com/${HEALTHCHECKS_UUID}/fail" || true
+    fi
+    exit 1
+}
+
 # Load environment variables
 if [ -f "$(dirname "$0")/raindrop-youtube-to-invidious-env" ]; then
     source "$(dirname "$0")/raindrop-youtube-to-invidious-env"
 else
-    echo "Error: Environment file not found. Please create raindrop-youtube-to-invidious-env with required credentials."
+    echo "Error: Environment file not found. Please create raindrop-youtube-to-invidious-env with required credentials." >&2
     exit 1
 fi
 
 # Check required environment variables
 if [ -z "$RAINDROP_TEST_TOKEN" ]; then
-    echo "Error: RAINDROP_TEST_TOKEN is not set in environment file"
-    exit 1
+    error_exit "Error: RAINDROP_TEST_TOKEN is not set in environment file"
 fi
 
 if [ -z "$INVIDIOUS_INSTANCE" ]; then
-    echo "Error: INVIDIOUS_INSTANCE is not set in environment file"
-    exit 1
+    error_exit "Error: INVIDIOUS_INSTANCE is not set in environment file"
 fi
+
+if [ -z "$HEALTHCHECKS_UUID" ]; then
+    error_exit "Error: HEALTHCHECKS_UUID is not set in environment file"
+fi
+
+# Ping healthchecks.io at start
+wget -q -O /dev/null "https://hc-ping.com/${HEALTHCHECKS_UUID}/start" || true
 
 # API endpoint and parameters
 API_BASE="https://api.raindrop.io/rest/v1"
@@ -44,15 +58,13 @@ while true; do
     
     # Check if request was successful
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to fetch data from Raindrop.io API"
-        exit 1
+        error_exit "Error: Failed to fetch data from Raindrop.io API"
     fi
     
     # Check for API errors
     ERROR_MESSAGE=$(echo "$RESPONSE" | jq -r '.errorMessage // empty')
     if [ -n "$ERROR_MESSAGE" ]; then
-        echo "API Error: $ERROR_MESSAGE"
-        exit 1
+        error_exit "API Error: $ERROR_MESSAGE"
     fi
     
     # Extract items
@@ -114,3 +126,5 @@ if [ $TOTAL_FOUND -gt 0 ]; then
     echo "Total YouTube bookmarks updated to Invidious: $TOTAL_FOUND"
 fi
 
+# Ping healthchecks.io on success
+wget -q -O /dev/null "https://hc-ping.com/${HEALTHCHECKS_UUID}" || true
